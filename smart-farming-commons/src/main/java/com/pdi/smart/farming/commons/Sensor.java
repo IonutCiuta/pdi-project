@@ -1,4 +1,4 @@
-package com.pdi.smart.farming.rest.dto;
+package com.pdi.smart.farming.commons;
 
 /**
  * ionutciuta24@gmail.com on 26.04.2017.

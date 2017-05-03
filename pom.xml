@@ -19,6 +19,7 @@
     <modules>
         <module>smart-farming-server</module>
         <module>smart-farming-generator</module>
+        <module>smart-farming-commons</module>
     </modules>
 
 </project>

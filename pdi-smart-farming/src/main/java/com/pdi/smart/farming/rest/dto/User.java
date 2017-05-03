@@ -1,13 +1,15 @@
 package com.pdi.smart.farming.rest.dto;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * ionutciuta24@gmail.com on 26.04.2017.
  */
 public class User {
+    @Id
     private String id;
     private String username;
     private String password;

@@ -1,5 +1,7 @@
 package com.pdi.smart.farming.rest.dto;
 
+import com.pdi.smart.farming.commons.Sensor;
+
 /**
  * ionutciuta24@gmail.com on 26.04.2017.
  */

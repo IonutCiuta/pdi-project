@@ -1,3 +1,5 @@
+import com.pdi.smart.farming.commons.Sensor;
+
 import java.util.HashMap;
 import java.util.Map;
 

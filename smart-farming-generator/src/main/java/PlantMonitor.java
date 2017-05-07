@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * ionutciuta24@gmail.com on 03.05.2017.
  */
-public abstract class PlantMonitor {
+public abstract class PlantMonitor implements Runnable{
     protected String name;
     protected Long delay;
     protected Set<Sensor> sensors;
@@ -16,6 +16,17 @@ public abstract class PlantMonitor {
         this.name = name;
         this.delay = delay;
         this.sensors = new HashSet<>();
+    }
+
+    @Override
+    public void run() {
+        generate();
+
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public abstract Map<Sensor, Double> generate();

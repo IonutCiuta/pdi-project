@@ -8,6 +8,10 @@ import java.util.Map;
  */
 public class RoseMonitor extends PlantMonitor {
     private static int id = 1;
+    private final double lightInc   = 0.01d;
+    private final double tempInc    = 0.01d;
+    private final double humInc     = 0.01d;
+
 
     public RoseMonitor(String name, Long delay) {
         super("rose-" + id++, delay);
@@ -16,6 +20,7 @@ public class RoseMonitor extends PlantMonitor {
     @Override
     public Map<Sensor, Double> generate() {
         Map<Sensor, Double> measurement = new HashMap<>();
+
         return measurement;
     }
 }

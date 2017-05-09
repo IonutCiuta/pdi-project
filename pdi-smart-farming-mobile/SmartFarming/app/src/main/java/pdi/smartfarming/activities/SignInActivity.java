@@ -46,18 +46,20 @@ public class SignInActivity extends AbstractActivity{
                     errorSnackbar.show();
                 } else {
                     Log.i(TAG, "Signing in...");
-                    UserRepository userRepo = RetrofitClient.instance.create(UserRepository.class);
+                    /*UserRepository userRepo = RetrofitClient.instance.create(UserRepository.class);
                     userRepo.authenticateUser(new User(username, password)).enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             Log.d(TAG, response.body().toString());
+                            next(MainActivity.class);
                         }
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             Log.e(TAG, t.getMessage());
                         }
-                    });
+                    });*/
+                    next(MainActivity.class);
                 }
             }
         });

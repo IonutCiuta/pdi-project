@@ -61,7 +61,6 @@ public class Server {
 
         // retrieve server socket and bind to port
         serverChannel.socket().bind(listenAddress);
-        serverChannel.socket().bind(listenAddress);
         serverChannel.register(this.selector, SelectionKey.OP_ACCEPT);
 
         System.out.println("Serverul a pornit...");

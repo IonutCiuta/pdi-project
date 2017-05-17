@@ -11,7 +11,7 @@ public class Client {
     public void startClient()
             throws IOException, InterruptedException {
 
-        InetSocketAddress hostAddress = new InetSocketAddress("localhost", 8091);
+        InetSocketAddress hostAddress = new InetSocketAddress("localhost", 8090);
         SocketChannel client = SocketChannel.open(hostAddress);
 
         String threadName = Thread.currentThread().getName();

@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ionutciuta24@gmail.com on 03.05.2017.
+ * Created by gevlad on 17-May-17.
  */
-public class RoseMonitor extends VegetableMonitor {
+public class CucumberMonitor extends VegetableMonitor {
     private static int id = 1;
     private final double lightInc   = 0.01d;
     private final double tempInc    = 0.01d;
     private final double humInc     = 0.01d;
 
 
-    public RoseMonitor(String name, Long delay) {
-        super("rose-" + id++, delay);
+    public CucumberMonitor(String name, Long delay) {
+        super("cucumber-" + id++, delay);
     }
 
     @Override

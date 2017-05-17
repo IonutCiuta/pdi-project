@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by gevlad on 17-May-17.
+ * ionutciuta24@gmail.com on 03.05.2017.
  */
-public abstract class PlantMonitor implements Runnable{
+public abstract class VegetableMonitor implements Runnable{
     protected String name;
     protected Long delay;
     protected Set<Sensor> sensors;
 
-    public PlantMonitor(String name, Long delay) {
+    public VegetableMonitor(String name, Long delay) {
         this.name = name;
         this.delay = delay;
         this.sensors = new HashSet<>();

@@ -1,43 +1,46 @@
-import com.pdi.smart.farming.commons.Sensor;
+import java.io.IOException;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import static java.lang.Thread.sleep;
 
 /**
  * ionutciuta24@gmail.com on 03.05.2017.
  */
+
 public abstract class VegetableMonitor implements Runnable{
+
     protected String name;
     protected Long delay;
-    protected Set<Sensor> sensors;
 
     public VegetableMonitor(String name, Long delay) {
         this.name = name;
         this.delay = delay;
-        this.sensors = new HashSet<>();
     }
 
     @Override
     public void run() {
-        generate();
+
+        System.out.println("Client leguma: " + this.name + "... a pornit");
+
+        try {
+            while(true) {
+                generate();
+                sleep(6000);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         try {
             Thread.sleep(delay);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 
-    public abstract Map<Sensor, Double> generate();
-
-    public void addSensor(Sensor sensor) {
-        this.sensors.add(sensor);
-    }
-
-    public Set<Sensor> getSensors() {
-        return sensors;
-    }
+    public abstract void generate() throws IOException, InterruptedException;
 
     public String getName() {
         return name;

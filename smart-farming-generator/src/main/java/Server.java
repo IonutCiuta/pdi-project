@@ -13,11 +13,13 @@ import java.nio.channels.SocketChannel;
 import java.util.*;
 
 public class Server {
+
     private Selector selector;
     private Map<SocketChannel,List> dataMapper;
     private InetSocketAddress listenAddress;
 
     public static void main(String[] args) throws Exception {
+
         Runnable server = new Runnable() {
             @Override
             public void run() {
@@ -30,22 +32,20 @@ public class Server {
             }
         };
 
-        Runnable client = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Client().startClient();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        TomatoMonitor tomato = new TomatoMonitor("Rosie", (long)5000);
+        CucumberMonitor cucumber = new CucumberMonitor("Castravete", (long)5000);
+        RoseMonitor rose = new RoseMonitor("Trandafir", (long)5000);
 
-            }
-        };
         new Thread(server).start();
-        new Thread(client, "Trandafir").start();
-        //new Thread(client, "Ghiocel").start();
+
+        Thread clientTomato = new Thread(tomato);
+        Thread clientCucumber = new Thread(cucumber);
+        Thread clientRose = new Thread(rose);
+
+        clientTomato.start();
+        clientCucumber.start();
+        clientRose.start();
+
     }
 
     public Server(String address, int port) throws IOException {

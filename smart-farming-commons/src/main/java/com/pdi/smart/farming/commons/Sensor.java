@@ -4,23 +4,23 @@ package com.pdi.smart.farming.commons;
  * ionutciuta24@gmail.com on 26.04.2017.
  */
 public class Sensor {
-    private String id;
     private Type type;
+    private int value;
 
     public Sensor() {
     }
 
-    public Sensor(String id, Type type) {
-        this.id = id;
+    public Sensor(Type type, int value) {
         this.type = type;
+        this.value = value;
     }
 
-    public String getId() {
-        return id;
+    public int getValue() {
+        return value;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public Type getType() {

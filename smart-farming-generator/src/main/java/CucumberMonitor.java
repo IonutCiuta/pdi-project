@@ -25,9 +25,12 @@ public class CucumberMonitor extends VegetableMonitor {
 
     @Override
     public void generate() throws IOException, InterruptedException {
-        Sensor sensorOne = new Sensor(HUMIDITY, 1066);
-        Sensor sensorTwo = new Sensor(LIGHT, 2015);
-        Sensor sensorThree = new Sensor(TEMPERATURE, 245);
+
+        RandomGenerator r = new RandomGenerator(500, 1500);
+
+        Sensor sensorOne = new Sensor(HUMIDITY, r.getNumber());
+        Sensor sensorTwo = new Sensor(LIGHT,  r.getNumber());
+        Sensor sensorThree = new Sensor(TEMPERATURE,  r.getNumber());
 
         this.sensors.clear();
         this.addSensor(sensorOne);

@@ -19,12 +19,13 @@ public abstract class VegetableMonitor implements Runnable{
     @Override
     public void run() {
 
-        System.out.println("Client leguma: " + this.name + "... a pornit");
+        System.out.println("Vegetable client: " + this.getName() + " is on");
 
         try {
             while(true) {
+                System.out.println();
                 generate();
-                sleep(6000);
+                sleep(delay);
             }
         } catch (IOException e) {
             e.printStackTrace();

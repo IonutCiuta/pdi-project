@@ -25,9 +25,11 @@ public class RoseMonitor extends PlantMonitor {
 
     @Override
     public void  generate() throws IOException, InterruptedException {
-        Sensor sensorOne = new Sensor(HUMIDITY, 945);
-        Sensor sensorTwo = new Sensor(LIGHT, 345);
-        Sensor sensorThree = new Sensor(TEMPERATURE, 105);
+        RandomGenerator r = new RandomGenerator(500, 1498);
+
+        Sensor sensorOne = new Sensor(HUMIDITY, r.getNumber());
+        Sensor sensorTwo = new Sensor(LIGHT, r.getNumber());
+        Sensor sensorThree = new Sensor(TEMPERATURE, r.getNumber());
 
         this.sensors.clear();
         this.addSensor(sensorOne);
@@ -44,10 +46,12 @@ public class RoseMonitor extends PlantMonitor {
 
         Iterator<Sensor> it = sensors.iterator();
 
+        Sensor sensor;
+        ByteBuffer buffer;
         for (;it.hasNext();) {
-            Sensor sensor = it.next();
+            sensor = it.next();
             byte[] message = new String(sensor.getType().toString() + ": " + sensor.getValue() + " ").getBytes();
-            ByteBuffer buffer = ByteBuffer.wrap(message);
+            buffer  = ByteBuffer.wrap(message);
             client.write(buffer);
             buffer.clear();
         }

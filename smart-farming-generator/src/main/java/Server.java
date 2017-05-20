@@ -113,6 +113,7 @@ public class Server {
         int numRead = -1;
         numRead = channel.read(buffer);
 
+
         if (numRead == -1) {
             this.dataMapper.remove(channel);
             Socket socket = channel.socket();

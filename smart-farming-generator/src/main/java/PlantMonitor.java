@@ -17,12 +17,13 @@ public abstract class PlantMonitor implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Client planta: " + this.getName() + "... a pornit");
+        System.out.println("Plant client: " + this.getName() + "is on");
 
         try {
             while(true) {
+                System.out.println();
                 generate();
-                sleep(5000);
+                sleep(delay);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,4 +44,5 @@ public abstract class PlantMonitor implements Runnable{
     public String getName() {
         return name;
     }
+
 }

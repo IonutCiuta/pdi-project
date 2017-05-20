@@ -25,9 +25,11 @@ public class TomatoMonitor extends VegetableMonitor {
 
     @Override
     public void generate() throws IOException, InterruptedException{
-        Sensor sensorOne = new Sensor(HUMIDITY, 1053);
-        Sensor sensorTwo = new Sensor(LIGHT, 705);
-        Sensor sensorThree = new Sensor(TEMPERATURE, 506);
+        RandomGenerator r = new RandomGenerator(500, 1499);
+
+        Sensor sensorOne = new Sensor(HUMIDITY, r.getNumber());
+        Sensor sensorTwo = new Sensor(LIGHT, r.getNumber());
+        Sensor sensorThree = new Sensor(TEMPERATURE, r.getNumber());
 
         this.sensors.clear();
         this.addSensor(sensorOne);
@@ -43,9 +45,9 @@ public class TomatoMonitor extends VegetableMonitor {
         }
 
         Iterator<Sensor> it = sensors.iterator();
-
+        Sensor sensor;
         for (;it.hasNext();) {
-            Sensor sensor = it.next();
+            sensor = it.next();
             byte[] message = new String(sensor.getType().toString() + ": " + sensor.getValue() + " ").getBytes();
             ByteBuffer buffer = ByteBuffer.wrap(message);
             client.write(buffer);

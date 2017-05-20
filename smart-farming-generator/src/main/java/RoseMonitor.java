@@ -13,13 +13,12 @@ import static com.pdi.smart.farming.commons.Sensor.Type.TEMPERATURE;
 /**
  * ionutciuta24@gmail.com on 03.05.2017.
  */
-public class RoseMonitor extends PlantMonitor {
-    private static int id = 3;
+public class RoseMonitor extends Monitor {
     private Set<Sensor> sensors;
 
 
-    public RoseMonitor(String name, Long delay) {
-        super("rose-" + id++, delay);
+    public RoseMonitor(String name, Long delay, int id) {
+        super("rose-" + id, delay, id);
         this.sensors = new HashSet<>();
     }
 
@@ -44,6 +43,11 @@ public class RoseMonitor extends PlantMonitor {
             e.printStackTrace();
         }
 
+        byte[] id = new String(String.valueOf(super.id + " ")).getBytes();
+        ByteBuffer bufferID = ByteBuffer.wrap(id);
+        client.write(bufferID);
+        bufferID.clear();
+
         Iterator<Sensor> it = sensors.iterator();
 
         Sensor sensor;
@@ -55,8 +59,8 @@ public class RoseMonitor extends PlantMonitor {
             client.write(buffer);
             buffer.clear();
         }
-        client.close();
 
+        client.close();
     }
     public void addSensor(Sensor sensor) {
         this.sensors.add(sensor);

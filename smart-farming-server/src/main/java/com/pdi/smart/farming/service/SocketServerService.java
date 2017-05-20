@@ -1,4 +1,4 @@
-/**
+package com.pdi.smart.farming.service; /**
  * Created by Cristian on 4/29/2017.
  */
 import java.io.IOException;
@@ -12,49 +12,20 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.*;
 
-public class Server {
+public class SocketServerService {
 
     private Selector selector;
     private Map<SocketChannel,List> dataMapper;
     private InetSocketAddress listenAddress;
 
-    public static void main(String[] args) throws Exception {
 
-        Runnable server = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Server("localhost", 8090).startServer();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-
-        TomatoMonitor tomato = new TomatoMonitor("Rosie", (long)5000);
-        CucumberMonitor cucumber = new CucumberMonitor("Castravete", (long)5000);
-        RoseMonitor rose = new RoseMonitor("Trandafir", (long)5000);
-
-        new Thread(server).start();
-
-        Thread clientTomato = new Thread(tomato);
-        Thread clientCucumber = new Thread(cucumber);
-        Thread clientRose = new Thread(rose);
-
-        clientTomato.start();
-        clientCucumber.start();
-        clientRose.start();
-
-    }
-
-    public Server(String address, int port) throws IOException {
+    public SocketServerService(String address, int port) throws IOException {
         listenAddress = new InetSocketAddress(address, port);
         dataMapper = new HashMap<SocketChannel,List>();
     }
 
     // create server channel
-    private void startServer() throws IOException {
+    public void startServer() throws IOException {
         this.selector = Selector.open();
         ServerSocketChannel serverChannel = ServerSocketChannel.open();
         serverChannel.configureBlocking(false);
@@ -121,6 +92,9 @@ public class Server {
             System.out.println("Connection closed by client: " + remoteAddr);
             channel.close();
             key.cancel();
+            return;
+        }
+        if (numRead <= 45 || numRead > 49 ){
             return;
         }
 

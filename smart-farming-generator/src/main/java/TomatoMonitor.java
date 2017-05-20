@@ -13,13 +13,12 @@ import static com.pdi.smart.farming.commons.Sensor.Type.TEMPERATURE;
 /**
  * Created by gevlad on 17-May-17.
  */
-public class TomatoMonitor extends VegetableMonitor {
-    private static int id = 1;
+public class TomatoMonitor extends Monitor {
     private Set<Sensor> sensors;
 
 
-    public TomatoMonitor(String name, Long delay) {
-        super("tomato-" + id++, delay);
+    public TomatoMonitor(String name, Long delay, int id) {
+        super("tomato-" + id, delay, id);
         this.sensors = new HashSet<>();
     }
 
@@ -44,6 +43,11 @@ public class TomatoMonitor extends VegetableMonitor {
             e.printStackTrace();
         }
 
+        byte[] id = new String(String.valueOf(super.id + " ")).getBytes();
+        ByteBuffer bufferID = ByteBuffer.wrap(id);
+        client.write(bufferID);
+        bufferID.clear();
+
         Iterator<Sensor> it = sensors.iterator();
         Sensor sensor;
         for (;it.hasNext();) {
@@ -53,6 +57,7 @@ public class TomatoMonitor extends VegetableMonitor {
             client.write(buffer);
             buffer.clear();
         }
+
         client.close();
 
     }

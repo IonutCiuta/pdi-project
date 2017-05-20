@@ -6,20 +6,22 @@ import static java.lang.Thread.sleep;
  * ionutciuta24@gmail.com on 03.05.2017.
  */
 
-public abstract class VegetableMonitor implements Runnable{
+public abstract class Monitor implements Runnable{
 
     protected String name;
     protected Long delay;
+    protected int id;
 
-    public VegetableMonitor(String name, Long delay) {
+    public Monitor(String name, Long delay, int id) {
         this.name = name;
         this.delay = delay;
+        this.id = id;
     }
 
     @Override
     public void run() {
 
-        System.out.println("Vegetable client: " + this.getName() + " is on");
+        System.out.println("Client: " + this.getName() + " is on");
 
         try {
             while(true) {

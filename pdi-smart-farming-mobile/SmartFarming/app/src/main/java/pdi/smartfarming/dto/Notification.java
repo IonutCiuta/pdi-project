@@ -1,4 +1,4 @@
-package pdi.smartfarming.rest;
+package pdi.smartfarming.dto;
 
 import java.util.Date;
 

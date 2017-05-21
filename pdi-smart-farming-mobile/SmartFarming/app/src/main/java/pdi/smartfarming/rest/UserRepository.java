@@ -1,5 +1,6 @@
 package pdi.smartfarming.rest;
 
+import pdi.smartfarming.dto.FcmToken;
 import pdi.smartfarming.dto.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -10,6 +11,9 @@ import retrofit2.http.POST;
  */
 
 public interface UserRepository {
-    @POST("signin/")
+    @POST("/mobile/api/user/signin/")
     Call<User> authenticateUser(@Body User user);
+
+    @POST("/mobile/api/user/token/")
+    Call<Void> addTokenForUser(@Body FcmToken token);
 }

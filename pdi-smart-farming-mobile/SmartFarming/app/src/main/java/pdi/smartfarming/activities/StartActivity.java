@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import pdi.smartfarming.R;
+import pdi.smartfarming.tools.Storage;
 
 /**
  * ionutciuta24@gmail.com on 07.05.2017.
@@ -28,8 +29,16 @@ public class StartActivity extends AbstractActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                next(SignInActivity.class);
+                gotoNextActivity();
             }
         }, 5000);
+    }
+
+    private void gotoNextActivity() {
+        if(Storage.getCurrentUser(this) == null) {
+            next(SignInActivity.class);
+        } else {
+            next(MainActivity.class);
+        }
     }
 }

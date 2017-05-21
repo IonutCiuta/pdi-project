@@ -31,6 +31,25 @@
             android:name=".activities.MainActivity"
             android:label="Home">
         </activity>
+
+        <service
+            android:name=".fcm.FCMService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".fcm.FCMIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".fcm.FCMRegistrationService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>

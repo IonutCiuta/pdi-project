@@ -2,6 +2,8 @@ package com.pdi.smart.farming.service;
 
 import com.pdi.smart.farming.db.UserRepository;
 import com.pdi.smart.farming.rest.dto.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import java.util.Optional;
  */
 @Component
 public class UserService {
+    private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
     @Autowired
     private UserRepository userRepository;
@@ -27,9 +30,9 @@ public class UserService {
 
     public Boolean signIn(String username, String pasword) {
         Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username));
-        String safePass = encryptionService.encrypt(pasword);
-
-        return user.isPresent() && safePass.equals(user.get().getPassword());
+        //String safePass = encryptionService.encrypt(pasword);
+        //return user.isPresent() && safePass.equals(user.get().getPassword());
+        return user.isPresent() && user.get().getPassword().equals(pasword);
     }
 
     public User findAuthenticatedUser(String username) {
@@ -46,8 +49,14 @@ public class UserService {
         Optional<User> userWrp = Optional.ofNullable(userRepository.findOne(userId));
         if(userWrp.isPresent()) {
             User user = userWrp.get();
-            user.addDeviceId(token);
-            userRepository.save(user);
+            if(user.containsDeviceId(token)) {
+                log.warn("Token already registered {}", token);
+            } else {
+                log.warn("New token added!");
+                user.addDeviceId(token);
+                userRepository.save(user);
+            }
+
             return true;
         }
 

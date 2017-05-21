@@ -17,14 +17,14 @@ import java.util.Optional;
 /**
  * ionutciuta24@gmail.com on 26.04.2017.
  */
-@RestController(value = "/mobile/api/user")
+@RestController
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(getClass().getName());
 
     @Autowired
     private UserService userService;
 
-    public @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public @RequestMapping(value = "/mobile/api/user/signup", method = RequestMethod.POST)
     ResponseEntity<User> signUp(@RequestBody User user) {
         log.info("Sing up: {} | {}", user.getUsername(), user.getPassword());
         Optional<User> newUser = Optional.ofNullable(userService.signUp(user));
@@ -36,7 +36,7 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    @RequestMapping(value = "/mobile/api/user/signin", method = RequestMethod.POST)
     public @ResponseBody
     ResponseEntity<User> signIn(@RequestBody User user) {
         log.info("Sing in: {} | {}", user.getUsername(), user.getPassword());
@@ -44,7 +44,7 @@ public class UserController {
         ResponseEntity<User> response;
 
         if(hasValidCredentials) {
-            response = new ResponseEntity<User>(userService.findAuthenticatedUser(user.getUsername()), HttpStatus.OK);
+            response = new ResponseEntity<>(userService.findAuthenticatedUser(user.getUsername()), HttpStatus.OK);
         } else {
             response = new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -52,7 +52,7 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @RequestMapping(value = "/mobile/api/user/token", method = RequestMethod.POST)
     public @ResponseBody
     ResponseEntity<Void> addToken(@RequestBody FcmToken token) {
         log.info("User {} has token {}", token.getUserId(), token.getToken());

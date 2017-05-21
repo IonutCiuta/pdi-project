@@ -1,4 +1,4 @@
-package pdi.smartfarming.rest;
+package pdi.smartfarming.dto;
 
 import java.util.Date;
 
@@ -7,10 +7,17 @@ import java.util.Date;
  */
 
 public class Plant {
+    public static final String STATUS_OK = "In normal conditions";
+    public static final String STATUS_NOT_OK = "Abnormal conditions";
+
     private String id;
+    private String userId;
     private String name;
     private String status;
     private Date lastUpdate;
+
+    public Plant() {
+    }
 
     public Plant(String name, String status, Date lastUpdate) {
         this.name = name;
@@ -48,5 +55,13 @@ public class Plant {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

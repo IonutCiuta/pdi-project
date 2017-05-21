@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import pdi.smartfarming.R;
-import pdi.smartfarming.rest.Notification;
-import pdi.smartfarming.rest.Plant;
+import pdi.smartfarming.dto.Notification;
+import pdi.smartfarming.dto.Plant;
 
 /**
  * ionutciuta24@gmail.com on 20.05.2017.

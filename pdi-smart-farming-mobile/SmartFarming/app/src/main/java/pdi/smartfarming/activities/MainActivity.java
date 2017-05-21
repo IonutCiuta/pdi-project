@@ -26,8 +26,8 @@ public class MainActivity extends AbstractActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BottomNavigationView mBotttomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        mBotttomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        BottomNavigationView mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {

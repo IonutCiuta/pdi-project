@@ -1,6 +1,8 @@
 package pdi.smartfarming.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.UnsupportedSchemeException;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 
 public abstract class AbstractFragment extends Fragment {
     protected final String TAG = getClass().getSimpleName();
+    private final String SP_KEY = "PDI";
     protected int layout;
 
     @Nullable
@@ -33,5 +36,11 @@ public abstract class AbstractFragment extends Fragment {
 
     public void setLayout(int layout) {
         this.layout = layout;
+    }
+
+    protected abstract void setup(View view);
+
+    protected SharedPreferences getStorage() {
+        return getContext().getSharedPreferences(SP_KEY, Context.MODE_PRIVATE);
     }
 }

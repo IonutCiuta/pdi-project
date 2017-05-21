@@ -41,4 +41,16 @@ public class UserService {
 
         return user.get();
     }
+
+    public boolean addToken(String userId, String token) {
+        Optional<User> userWrp = Optional.ofNullable(userRepository.findOne(userId));
+        if(userWrp.isPresent()) {
+            User user = userWrp.get();
+            user.addDeviceId(token);
+            userRepository.save(user);
+            return true;
+        }
+
+        return false;
+    }
 }

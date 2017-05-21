@@ -1,6 +1,7 @@
 package com.pdi.smart.farming.rest.endpoint;
 
 import com.pdi.smart.farming.db.UserRepository;
+import com.pdi.smart.farming.rest.dto.FcmToken;
 import com.pdi.smart.farming.rest.dto.User;
 import com.pdi.smart.farming.service.UserService;
 import org.slf4j.Logger;
@@ -46,6 +47,21 @@ public class UserController {
             response = new ResponseEntity<User>(userService.findAuthenticatedUser(user.getUsername()), HttpStatus.OK);
         } else {
             response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return response;
+    }
+
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<Void> addToken(@RequestBody FcmToken token) {
+        log.info("User {} has token {}", token.getUserId(), token.getToken());
+        ResponseEntity<Void> response;
+
+        if(userService.addToken(token.getUserId(), token.getToken())) {
+            response = new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return response;

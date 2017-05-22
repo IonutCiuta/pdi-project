@@ -3,6 +3,7 @@ package pdi.smartfarming.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import pdi.smartfarming.R;
+import pdi.smartfarming.dto.Notification;
 import pdi.smartfarming.dto.Plant;
 import pdi.smartfarming.rest.PlantRepository;
 import pdi.smartfarming.tools.Data;
@@ -32,8 +34,8 @@ import retrofit2.Response;
  * ionutciuta24@gmail.com on 09.05.2017.
  */
 
-public class PlantFragment extends AbstractFragment {
-
+public class PlantFragment extends AbstractFragment implements SwipeRefreshLayout.OnRefreshListener {
+    private SwipeRefreshLayout mSwipeLayout;
     private Adapter<Plant> mAdapter;
 
     public static PlantFragment instance() {
@@ -57,6 +59,9 @@ public class PlantFragment extends AbstractFragment {
         rv.addItemDecoration(new VerticalDivider());
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(mAdapter);
+
+        mSwipeLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeLayout);
+        mSwipeLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -70,26 +75,38 @@ public class PlantFragment extends AbstractFragment {
             mAdapter.update(plants);
         } else {
             Log.d(TAG, "Not found in storage");
-            PlantRepository plantRepository = RetrofitClient.instance.create(PlantRepository.class);
-            plantRepository.getAllForUser(Storage.getCurrentUser(getContext()).getId()).enqueue(
-                    new Callback<List<Plant>>() {
-                        @Override
-                        public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
-                            List<Plant> plants = response.body();
-                            for(Plant p : plants) {
-                                p.setLastUpdate(new Date());
-                                p.setStatus(Plant.STATUS_OK);
-                            }
-                            mAdapter.update(plants);
-                            Storage.savePlants(plants, getContext());
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Plant>> call, Throwable t) {
-                            Log.e(TAG, t.getMessage());
-                            Toast.makeText(getContext(), "Error while getting data from server.", Toast.LENGTH_LONG).show();
-                        }
-            });
+            load();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        List<Notification> notifications = Storage.getNotifs(getContext());
+        Log.i(TAG, "onRefresh: " + notifications);
+        load();
+        mSwipeLayout.setRefreshing(false);
+    }
+
+    private void load() {
+        PlantRepository plantRepository = RetrofitClient.instance.create(PlantRepository.class);
+        plantRepository.getAllForUser(Storage.getCurrentUser(getContext()).getId()).enqueue(
+                new Callback<List<Plant>>() {
+                    @Override
+                    public void onResponse(Call<List<Plant>> call, Response<List<Plant>> response) {
+                        List<Plant> plants = response.body();
+                        for(Plant p : plants) {
+                            p.setLastUpdate(new Date());
+                            p.setStatus(Plant.STATUS_OK);
+                        }
+                        mAdapter.update(plants);
+                        Storage.savePlants(plants, getContext());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Plant>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage());
+                        Toast.makeText(getContext(), "Error while getting data from server.", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }

@@ -35,7 +35,7 @@ public class DummyDataService{
 
     @PostConstruct
     private void init() {
-        this.user = new User("u1", "ion", "pass");
+        //this.user = new User("u1", "ion", "pass");
         this.plant1 = new Plant("101", "u1", "Rosie 1");
         this.plant2 = new Plant("102", "u1", "Castravete 1");
         this.plant3 = new Plant("103", "u1", "Trandafir 1");
@@ -47,7 +47,7 @@ public class DummyDataService{
     public void setup() {
         log.info("Setup: " + initData);
         if(initData) {
-            userRepository.save(user);
+            //userRepository.save(user);
             plantRepository.save(Arrays.asList(plant1, plant2, plant3, plant4, plant5, plant6));
         }
     }

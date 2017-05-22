@@ -118,6 +118,6 @@ public class SocketServerService {
         String dataStr = new String(data);
         System.out.println("Got: " + dataStr);
 
-        fcmService.convertData(dataStr);
+        fcmService.processData(dataStr);
     }
 }

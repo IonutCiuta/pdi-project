@@ -38,12 +38,17 @@ public class FcmService {
     }
 
 
-    public void push(FirebaseMessage notification, User user) {
-        log.info("Sending {} to {}", notification, user.getId());
+    public void push(FirebaseMessage notification) {
+        log.info("Sending {}", notification);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.set("Authorization", "key=" + fcmServerKey);
         HttpEntity<FirebaseMessage> entity = new HttpEntity<>(notification, httpHeaders);
         restTemplate.exchange(fcmApiUrl, HttpMethod.POST, entity, Object.class);
+    }
+
+    public FirebaseMessage convertData(String data) {
+        String plantId = data.split(" ")[0];
+        return null;
     }
 }

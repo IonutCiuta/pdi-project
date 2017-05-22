@@ -1,6 +1,12 @@
-package com.pdi.smart.farming.service; /**
+package com.pdi.smart.farming.service;
+/**
  * Created by Cristian on 4/29/2017.
  */
+import com.pdi.smart.farming.fcm.FcmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -12,16 +18,24 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.*;
 
+@Component
 public class SocketServerService {
 
     private Selector selector;
     private Map<SocketChannel,List> dataMapper;
     private InetSocketAddress listenAddress;
+    private String address;
+    private int port;
 
+    @Autowired
+    private FcmService fcmService;
 
-    public SocketServerService(String address, int port) throws IOException {
-        listenAddress = new InetSocketAddress(address, port);
-        dataMapper = new HashMap<SocketChannel,List>();
+    @PostConstruct
+    private void init() {
+        this.address = "localhost";
+        this.port = 8090;
+        this.dataMapper = new HashMap<>();
+        this.listenAddress = new InetSocketAddress(address, port);
     }
 
     // create server channel
@@ -100,6 +114,10 @@ public class SocketServerService {
 
         byte[] data = new byte[numRead];
         System.arraycopy(buffer.array(), 0, data, 0, numRead);
-        System.out.println("Got: " + new String(data));
+
+        String dataStr = new String(data);
+        System.out.println("Got: " + dataStr);
+
+        fcmService.convertData(dataStr);
     }
 }

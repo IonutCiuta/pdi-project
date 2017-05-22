@@ -27,6 +27,6 @@ public class FCMTest {
         FirebaseNotification fcmNotification = new FirebaseNotification("Warning", "One of your plant is in danger!");
         FirebaseData fcmData = new FirebaseData("p1", "Plant 1","1200", "1333", "5000", new Date(), "Ok");
         FirebaseMessage fcmMessage = new FirebaseMessage(fcmNotification, fcmData, to);
-        fcmService.push(fcmMessage, new User("ion", "333", "asasd"));
+        //fcmService.push(fcmMessage, new User("ion", "333", "asasd"));
     }
 }

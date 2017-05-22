@@ -17,6 +17,9 @@ public class ApplicationStartupListener implements ApplicationListener<Applicati
     @Autowired
     public DummyDataService dummyDataService;
 
+    @Autowired
+    public SocketServerService socketServerService;
+
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         dummyDataService.setup();
@@ -26,7 +29,7 @@ public class ApplicationStartupListener implements ApplicationListener<Applicati
     private void openSocketServer() {
         new Thread(() -> {
             try {
-                new SocketServerService("localhost", 8090).startServer();
+               socketServerService.startServer();
             } catch (IOException e) {
                 e.printStackTrace();
             }

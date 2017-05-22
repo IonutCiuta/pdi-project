@@ -1,5 +1,6 @@
 package com.pdi.smart.farming.fcm;
 
+import com.pdi.smart.farming.commons.AlertValues;
 import com.pdi.smart.farming.db.UserRepository;
 import com.pdi.smart.farming.rest.dto.Notification;
 import com.pdi.smart.farming.rest.dto.User;
@@ -48,7 +49,39 @@ public class FcmService {
     }
 
     public FirebaseMessage convertData(String data) {
-        String plantId = data.split(" ")[0];
+
+        String splitMessage[] = data.split(" ");
+        String plantId = splitMessage[0];
+
+        String humidity = splitMessage[1];
+        String light = splitMessage[2];
+        String temperature = splitMessage[3];
+
+        String splitHumidity[] = humidity.split(" ");
+        String splitLight[] = light.split(" ");
+        String splitTemperature[] = temperature.split(" ");
+
+        int humidityValue = new Integer(splitHumidity[1]);
+        int lightValue = new Integer(splitLight[1]);
+        int temperatureValue = new Integer(splitTemperature[1]);
+
+        String body = null;
+
+
+        if (humidityValue < AlertValues.minValueHumidity)
+            body = "Plant/Vegetable has low humidity!";
+        if (humidityValue > AlertValues.maxValueHumidity)
+            body = "Plant/Vegetable has high humidity!";
+        if (lightValue < AlertValues.minValueLight)
+            body = "Plant/Vegetable has low light!";
+        if (lightValue > AlertValues.maxValueLight)
+            body = "Plant/Vegetable has high light!";
+        if (temperatureValue < AlertValues.minValueTemperature)
+            body = "Plant/Vegetable has low temperature!";
+        if (temperatureValue > AlertValues.maxValueTemperature)
+            body = "Plant/Vegetable has high temperature!";
+        
+
         return null;
     }
 }

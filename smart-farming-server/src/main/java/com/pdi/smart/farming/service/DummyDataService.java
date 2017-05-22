@@ -31,23 +31,24 @@ public class DummyDataService{
     private PlantRepository plantRepository;
 
     private User user;
-    private Plant plant1, plant2, plant3, plant4, plant5;
+    private Plant plant1, plant2, plant3, plant4, plant5, plant6;
 
     @PostConstruct
     private void init() {
         this.user = new User("u1", "ion", "pass");
-        this.plant1 = new Plant("p1", "u1", "Plant 1");
-        this.plant2 = new Plant("p2", "u1", "Plant 2");
-        this.plant3 = new Plant("p3", "u1", "Plant 3");
-        this.plant4 = new Plant("p4", "u1", "Plant 4");
-        this.plant5 = new Plant("p5", "u1", "Plant 5");
+        this.plant1 = new Plant("101", "u1", "Rosie 1");
+        this.plant2 = new Plant("102", "u1", "Castravete 1");
+        this.plant3 = new Plant("103", "u1", "Trandafir 1");
+        this.plant4 = new Plant("201", "u1", "Rosie 2");
+        this.plant5 = new Plant("202", "u1", "Castravete 2");
+        this.plant6 = new Plant("203", "u1", "Trandafir 2");
      }
 
     public void setup() {
         log.info("Setup: " + initData);
         if(initData) {
             userRepository.save(user);
-            plantRepository.save(Arrays.asList(plant1, plant2, plant3, plant4, plant5));
+            plantRepository.save(Arrays.asList(plant1, plant2, plant3, plant4, plant5, plant6));
         }
     }
 }

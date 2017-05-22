@@ -108,7 +108,7 @@ public class SocketServerService {
             key.cancel();
             return;
         }
-        if (numRead <= 45 || numRead > 49 ){
+        if (numRead < 45 || numRead > 49 ){
             return;
         }
 

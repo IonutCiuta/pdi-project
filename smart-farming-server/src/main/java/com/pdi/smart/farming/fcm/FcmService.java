@@ -113,18 +113,30 @@ public class FcmService {
         int temperatureValue    = new Integer(getTemperature(data));
 
         String body = null;
-        if (humidityValue < AlertValues.minValueHumidity)
+        if (humidityValue < AlertValues.minValueHumidity) {
             body = "Plant/Vegetable has low humidity!";
-        if (humidityValue > AlertValues.maxValueHumidity)
+            return body;
+        }
+        if (humidityValue > AlertValues.maxValueHumidity) {
             body = "Plant/Vegetable has high humidity!";
-        if (lightValue < AlertValues.minValueLight)
+            return body;
+        }
+        if (lightValue < AlertValues.minValueLight) {
             body = "Plant/Vegetable has low light!";
-        if (lightValue > AlertValues.maxValueLight)
+            return body;
+        }
+        if (lightValue > AlertValues.maxValueLight) {
             body = "Plant/Vegetable has high light!";
-        if (temperatureValue < AlertValues.minValueTemperature)
+            return body;
+        }
+        if (temperatureValue < AlertValues.minValueTemperature) {
             body = "Plant/Vegetable has low temperature!";
-        if (temperatureValue > AlertValues.maxValueTemperature)
+            return body;
+        }
+        if (temperatureValue > AlertValues.maxValueTemperature) {
             body = "Plant/Vegetable has high temperature!";
+            return body;
+        }
         else {
             body = "Plant/Vegetable has optimal conditions!";
         }

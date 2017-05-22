@@ -22,7 +22,8 @@ public class Data {
                     i * 1100 + i + "",
                     i * 1200 + i + "",
                     i * 1300 + i + "",
-                    new Date()
+                    new Date(),
+                    "ok"
             ));
         }
 

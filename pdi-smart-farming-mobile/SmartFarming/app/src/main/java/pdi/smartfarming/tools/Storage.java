@@ -5,10 +5,13 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import pdi.smartfarming.dto.FcmToken;
+import pdi.smartfarming.dto.Notification;
 import pdi.smartfarming.dto.Plant;
 import pdi.smartfarming.dto.User;
 
@@ -21,6 +24,7 @@ public class Storage {
     private static final String KEY_USER = "key_user";
     private static final String KEY_TOKEN = "key_token";
     private static final String KEY_PLANT = "key_plant";
+    private static final String KEY_NOTIFS = "key_notifs";
 
     private static Gson gson = new Gson();
 
@@ -52,6 +56,17 @@ public class Storage {
         getStorage(context).edit().putString(KEY_PLANT, gson.toJson(plants)).apply();
     }
 
+    public static List<Notification> getNotifs(Context context) {
+        String notifs = getStorage(context).getString(KEY_NOTIFS, null);
+        return notifs == null ?
+                new ArrayList<Notification>() :
+                new ArrayList<>(Arrays.asList(gson.fromJson(notifs, Notification[].class)));
+    }
+
+    public static void saveNotifs(List<Notification> notifications, Context context) {
+        getStorage(context).edit().putString(KEY_NOTIFS, gson.toJson(notifications)).apply();
+    }
+
     public static boolean containsUser(Context context) {
         return contains(KEY_USER, context);
     }
@@ -63,6 +78,8 @@ public class Storage {
     public static boolean containsToken(Context context) {
         return contains(KEY_TOKEN, context);
     }
+
+    public static boolean containsNotifs(Context context) {return contains(KEY_NOTIFS, context); }
 
     private static boolean contains(String key, Context context) {
         return getStorage(context).contains(key);

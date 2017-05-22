@@ -54,7 +54,7 @@ public class RoseMonitor extends Monitor {
         ByteBuffer buffer;
         for (;it.hasNext();) {
             sensor = it.next();
-            byte[] message = new String(sensor.getType().toString() + ": " + sensor.getValue() + " ").getBytes();
+            byte[] message = new String(sensor.getType().toString() + ":" + sensor.getValue() + " ").getBytes();
             buffer  = ByteBuffer.wrap(message);
             client.write(buffer);
             buffer.clear();

@@ -52,7 +52,7 @@ public class TomatoMonitor extends Monitor {
         Sensor sensor;
         for (;it.hasNext();) {
             sensor = it.next();
-            byte[] message = new String(sensor.getType().toString() + ": " + sensor.getValue() + " ").getBytes();
+            byte[] message = new String(sensor.getType().toString() + ":" + sensor.getValue() + " ").getBytes();
             ByteBuffer buffer = ByteBuffer.wrap(message);
             client.write(buffer);
             buffer.clear();

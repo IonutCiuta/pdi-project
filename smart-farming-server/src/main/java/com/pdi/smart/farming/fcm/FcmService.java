@@ -80,7 +80,7 @@ public class FcmService {
             body = "Plant/Vegetable has low temperature!";
         if (temperatureValue > AlertValues.maxValueTemperature)
             body = "Plant/Vegetable has high temperature!";
-        
+
 
         return null;
     }

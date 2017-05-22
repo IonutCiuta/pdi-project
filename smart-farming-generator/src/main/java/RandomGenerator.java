@@ -15,6 +15,6 @@ public class RandomGenerator {
 
     public int getNumber(){
         Random r = new Random();
-        return r.nextInt(maxValue-minValue) + minValue;
+        return r.nextInt(maxValue-minValue) + minValue ;
     }
 }

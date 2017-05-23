@@ -61,6 +61,8 @@ public class FcmService {
     }
 
     public void processData(String data) {
+        log.info("processData: {}", data);
+
         String plantId = data.split(" ")[0];
         Plant plant = plantRepository.findOne(plantId);
         User user = userRepository.findOne(plant.getUserId());
@@ -79,6 +81,7 @@ public class FcmService {
         FirebaseMessage notification = new FirebaseMessage(fcmNotification, fcmData, null);
 
         user.getDevicesIds().forEach(id -> {
+                    log.info("User token: {}", id);
                     notification.setTo(id);
                     push(notification);
                     firebaseMessageRepository.save(notification);

@@ -21,7 +21,7 @@ import pdi.smartfarming.tools.Storage;
 
 public class FCMService extends FirebaseMessagingService{
     private final String TAG = getClass().getName();
-    private final int MESSAGE_NOTIFICATION_ID = 1;
+    private static int MESSAGE_NOTIFICATION_ID = 1;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -48,7 +48,7 @@ public class FCMService extends FirebaseMessagingService{
         NotificationManager mNotificationManager = (NotificationManager)
                 getBaseContext().getSystemService(NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, notification);
+        mNotificationManager.notify(MESSAGE_NOTIFICATION_ID++, notification);
     }
 
     private void storeNotification(Map<String, String> data) {

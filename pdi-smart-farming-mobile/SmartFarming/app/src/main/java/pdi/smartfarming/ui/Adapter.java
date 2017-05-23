@@ -79,6 +79,7 @@ public class Adapter<T> extends RecyclerView.Adapter<Adapter.VH<T>>{
             txtH = (TextView) view.findViewById(R.id.text_humidity);
             txtT = (TextView) view.findViewById(R.id.text_temperature);
             txtL = (TextView) view.findViewById(R.id.text_light);
+            txtStatus = (TextView) view.findViewById(R.id.text_status);
         }
 
         private void setPlant(Plant plant) {
@@ -93,6 +94,7 @@ public class Adapter<T> extends RecyclerView.Adapter<Adapter.VH<T>>{
             txtH.setText(notification.getH());
             txtT.setText(notification.getT());
             txtL.setText(notification.getL());
+            txtStatus.setText(notification.getStatus());
         }
     }
 }
